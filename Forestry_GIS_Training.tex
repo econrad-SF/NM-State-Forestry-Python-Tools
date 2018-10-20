@@ -1,0 +1,930 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass[t]{beamer} % specify vertical top alignment globally with 't'
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}   %%%%%%%
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}  %%%%%
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{gensymb}  % allows \degree
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\graphicspath { {images/} } % specify the location of where images are kept under current directory
+\usepackage[export]{adjustbox}
+\usepackage[font=small, labelfont=bf, skip=-8pt]{caption} % Required for specifying captions to tables and figures
+\usepackage{dirtytalk}  % For better looking quotation marks.
+\usepackage{hyperref}
+
+\definecolor{NMSF_green}{RGB}{0,102,0} % Create new green color using Red/Green/Blue values.
+\usecolortheme[named=NMSF_green]{structure} % Change default blue colored tiles from "Madrid" to green
+
+
+\setbeamerfont{myTOC}{series=\bfseries,size=\large}
+\AtBeginSection[]{\frame{\frametitle{Outline}%
+\usebeamerfont{myTOC}\tableofcontents[current]}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Forestry GIS Training]{Forestry GIS Training} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Edward Conrad} % Your name
+\institute[] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+New Mexico State Forestry Division \\ % Your institution for the title page
+\medskip
+\textit{edward.conrad@state.nm.us} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+\section{Coordinate Systems} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
+\subsection{Geographic coordinate systems (GCS)} % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
+
+\begin{frame}
+\frametitle{Geographic Coordinate Systems}
+\begin{itemize}
+\item Spatial reference for \underline{Earth's surface} using angular measurements \\
+\item Equator and Prime Meridian \\
+\item \textbf{Datum:} mathematical model of Earth 
+\end{itemize}
+\includegraphics[scale=0.44, center]{latitudeLongitude}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{GCS: World Geodetic System of 1984 (WGS84)}
+Reference system for Global Positioning System (GPS)
+
+\includegraphics[scale=0.3]{gps}  \hspace{0.3in}
+\includegraphics[scale=0.65]{garminGPS64}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{GCS: World Geodetic System of 1984 (WGS84)}
+
+Datum created by U.S. Department of Defense for GPS\\
+\begin{itemize}
+\item \textbf{Origin:} Earth's center of mass; error believed to be $<\ $2 cm  %created using ground and Doppler satellite observations
+\item \textbf{Ellipsoid:} (almost identical to GRS80\footnote{Geodetic Reference System 1980} used by NAD83\footnote{North American Datum of 1983})
+\begin{itemize}
+	\item semimajor axis = 6,378,137.0 m
+	\item semiminor axis = 6,356,752.314\underline{245} m vs. 6,356,752.314\underline{140} m
+	\item \textbf{Flattening:} $1/298.257$  $((semimajor - semiminor)/semimajor)$
+\end{itemize}
+\end{itemize}
+\vspace{-0.1in}
+\begin{table}
+\begin{tabular}{l}
+\includegraphics[scale=0.32, valign=T]{axes} \hspace{.5in}
+\includegraphics[scale=0.21, valign=T]{oblateSpheroid}
+\end{tabular}
+\end{table}
+%\captionof{figure}{test}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Geographic Coordinate Systems}
+
+\textbf{Latitude/Longitude:}
+\begin{itemize}
+\item Degrees, minutes, seconds (DMS)\hfill    35\degree41'14.73''N  -105\degree56'20.48''W \\~\\
+\item Degrees decimal minutes (DDM)\hfill   35\degree41.2455''N  -105\degree56.34132''W \\~\\
+\item Decimal degrees (DD)\hfill 35.687425 N -105.939022 W \\~\\
+\end{itemize}
+
+\begin{block}{DMS Conversion to DD}
+$DD = degrees + (minutes/60) + (seconds/3600)$
+\end{block}
+
+\begin{block}{DDM Conversion to DD}
+$DD = degrees + (decimal\ minutes/60)$
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Geographic Coordinate Systems - Google Earth Pro}
+\textbf{Web Mercator  (WGS Web Mercator)}
+\vspace{-0.3in}
+\begin{table}
+\begin{tabular}{l}
+\includegraphics[scale=0.5, valign=T]{googleEarth} 
+\includegraphics[scale=0.45, valign=T]{plaza} \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Projected coordinate systems (PCS)}
+\begin{frame}
+\frametitle{Projection: Geographic $\rightarrow$ Projected Coordinate System}
+
+Why Project?
+\begin{itemize}
+\item We use 2D maps, not 3D globe
+\item Measurements: Angular (degrees) $\rightarrow$ Planar (meters/feet)
+\item Spatial computations much easier using Cartesian plane than globe
+\end{itemize}
+
+\includegraphics[scale=0.3]{graticule}\hspace{0.5in}
+\includegraphics[scale=0.55]{cartesianCoordinateSystem}
+
+\begin{block}{Measuring Distance on a Plane}
+$Distance = \sqrt{(x_1-x_2)^2 + (y_1 -y_2)^2} $
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Projection: Geographic $\rightarrow$ Projected Coordinate System}
+\textbf{Goal:} to minimize distortion that occurs when going from curved $\rightarrow$ flat \\~\\
+
+\includegraphics[scale=0.4, center]{orangePeel}
+
+Different projections preserve specific spatial properties
+\begin{itemize}
+\item Conformal: local angles and shapes (global property) 
+\item Equivalent (equal area): relative area (global property)
+\item Equidistant: distance across some lines
+\item Aziumthal: certain directions
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Map Projection Surfaces}
+
+\vspace{-0.1in}
+\includegraphics[scale=.4, center]{mapProjectionSurfaces}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Universal Transverse Mercator (UTM)}
+
+\textbf{Conformal projection}. Each UTM Zone get projected onto cylinder.\\ 
+Divides Earth into 60 zones between 84\degree N and 80\degree S
+\includegraphics[scale=0.5, center]{utmZonesWorld}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Universal Transverse Mercator (UTM)}
+Each UTM Zone keeps distortion no greater than 1 part in 1,000\\
+\vspace{0.05in}
+\includegraphics[scale=0.4, center]{utmZonesNM}\\
+\scriptsize{(Across a 1,000 m distance measured anywhere in a UTM zone, error will be +/- 1 meter.)}\\
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Projection: Geographic $\rightarrow$ Projected Coordinate System}
+Angular (degrees) $\rightarrow$ Planar (meters)\\
+
+Three Options:
+\begin{enumerate}
+\item WGS84 $\rightarrow$ WGS84 UTM Zone 13N  (no datum shift)\\
+\item WGS84 $\rightarrow$ NAD27 UTM Zone 13N (involves datum shift)\\
+\item \large{\textbf{WGS84 $\rightarrow$ NAD83 UTM Zone 13N (involves datum shift)}}\\~\\
+\end{enumerate}
+
+
+\textbf{Why?}\\
+\begin{itemize}
+\item NAD83 (2011) and WGS84 (G1762) differ up to 1-2 m within continental U.S.\\
+\begin{itemize}
+	\item NAD 1983 fixed to North American tectonic plate, which moves 10-20 mm/year\\
+	\item WGS 1984 tied to the International Terrestrial Reference System (ITRF) 
+\end{itemize}
+\item \textbf{NEVER use NAD27 datum}. Ellipsoid origin is Meades Ranch, Kansas.
+\end{itemize}
+
+%\textbf{NAD83 UTM Zone 13N} projection (EPSG\footnote{European Petroleum Survey Group} Code = 26913)
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{DNRGPS from Minnesota DNR}
+\begin{frame}
+\frametitle{Projection Using DNRGPS by Minnesota DNR}
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.}\includegraphics[scale=0.25, valign=T]{dnrGPS1} & \textbf{2.}\includegraphics[scale=0.25, valign=T]{dnrGPS2} \\
+\textbf{3.}\includegraphics[scale=0.40, valign=T]{dnrGPS3} & \textbf{4.}\includegraphics[scale=0.40, valign=T]{dnrGPS4} \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{ArcMap tools for Projection}
+\begin{frame}
+\frametitle{\underline{Projection} Using ArcMap \hfill \includegraphics[scale=0.30]{arcmapToolbox}}
+
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.}\includegraphics[scale=0.20, valign=T]{arcmapProj1} & \textbf{2.}\includegraphics[scale=0.35, valign=T]{arcmapProj2} \\
+\textbf{3.}\includegraphics[scale=0.30, valign=T]{arcmapProj3} & \textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapProj4} \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{\underline{Reprojection} Using ArcMap \hfill \includegraphics[scale=0.30]{arcmapToolbox}}
+
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.}\includegraphics[scale=0.20, valign=T]{arcmapProj1} & \textbf{2.}\includegraphics[scale=0.28, valign=T]{arcmapProj6} \\
+\textbf{3.}\includegraphics[scale=0.30, valign=T]{arcmapProj7} & \textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapProj8} \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{What about Geospatial Data without a Coordinate System?}
+
+\includegraphics[scale=0.5, valign=T]{arcmapNoCRS}\\~\\
+
+Should not occur if DNRGPS and/or ArcMap are used correctly.
+\end{frame}
+
+%%------------------------------------------------
+
+\begin{frame}
+\frametitle{\underline{Define Projection} Using ArcMap}
+1st create backup copy of shapefile.
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.}\includegraphics[scale=0.30, valign=T]{arcmapDefProj1} & \textbf{2.}\includegraphics[scale=0.45, valign=T]{arcmapDefProj2} \\
+\textbf{3.}\includegraphics[scale=0.33, valign=T]{arcmapDefProj3} & \textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapDefProj4} \\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%------------------------------------------------
+
+\section{Geospatial Data Types}
+\subsection{Vector and Raster data}
+\begin{frame}
+\frametitle{Geospatial Data Types}
+
+\vspace{-0.30in}
+\center
+\includegraphics[scale=0.60, valign=T]{vectorRaster}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Vector Data Formats}
+
+\begin{columns}[t]
+\column{.6\textwidth}
+\begin{itemize}
+\item Shapefile
+\begin{itemize}
+	\item Mandatory: .shp, .shx, and .dbf
+	\item \textbf{Best Practice: .shp, .shx, .dbf, .prj}
+	\item Optional: .xml, .sbn, .sbx, .cpg
+\end{itemize}
+\vspace{0.4in}
+\item Feature class (geodatabase)
+\vspace{0.4in}
+\item KMZ (keyhole markup language)
+\end{itemize}
+
+\column{.4\textwidth}
+\includegraphics[scale=0.4, valign=T]{arcmapUnknownCRS}\\
+\vspace{0.3in}
+\includegraphics[scale=0.6]{arcmapGDB}\\
+\vspace{0.2in}
+\includegraphics[scale=0.6]{googleEarth2} \hspace{0.1in} \small{Google Earth Pro}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Vector Data Conversion to KML}
+\scriptsize{ArcMap tool only works with Layers, not shapefiles/feature classes. Add shapefile to TOCs to make it a layer.}
+\normalsize
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\textbf{1.} \includegraphics[scale=0.40, valign=T]{arcmapToKML1} 
+
+\column{.5\textwidth}
+\textbf{2.} \includegraphics[scale=0.35, valign=T]{arcmapToKML2}\\
+\vspace{0.1in}
+FYI - KMZs for Google Earth Pro:
+\vspace{-0.2in}
+\includegraphics[scale=0.50, valign=T]{arcmapToKML3}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Google Earth Pro and \say{Fire Management.kmz}}
+\vspace{-0.5in}
+\center
+\includegraphics[scale=0.5, valign=T]{googleEarth3}
+\end{frame}
+
+%------------------------------------------------
+
+\section{Editing Workflows}
+\subsection{Geometry and non-spatial Attributes in ArcMap}
+\begin{frame}
+\frametitle{Editing / Data Creation in ArcMap}
+
+1st check data frame coordinate system. Make sure NAD83 UTM Z13N.
+\tiny{(Data frame's default coordinate system determined by 1st layer added to ArcMap session; can be manually changed.)}
+\vspace{-0.1in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.} \includegraphics[scale=0.40, valign=T]{arcmapDataFrame1} & \textbf{2.} \includegraphics[scale=0.25, valign=T]{arcmapDataFrame2} \\
+\textbf{3.}\includegraphics[scale=0.33, valign=T]{arcmapDefProj3} & \textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapDefProj4} \\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing in ArcMap - Create New Features}
+\vspace{-0.30in}
+\begin{table}
+\begin{tabular}{l l l}
+\textbf{1.} \includegraphics[scale=0.40, valign=T]{arcmapCreate1} & \textbf{2.} \includegraphics[scale=0.33, valign=T]{arcmapCreate2} & \textbf{3.}\includegraphics[scale=0.20, valign=T]{arcmapCreate3} \\
+\textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapCreate4} & \textbf{5.}\includegraphics[scale=0.35, valign=T]{arcmapCreate5} & \textbf{6.}\includegraphics[scale=0.35, valign=T]{arcmapCreate6} 
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing in ArcMap - Create New Features}
+\textbf{7. \includegraphics[scale=0.40, valign=T]{arcmapCreate7}}
+\vspace{-0.10in}
+\begin{table}
+\begin{tabular}{l l l}
+\textbf{8.} \includegraphics[scale=0.33, valign=T]{arcmapCreate8} & \textbf{9.}\includegraphics[scale=0.40, valign=T]{arcmapCreate9} & \textbf{10.}\includegraphics[scale=0.45, valign=T]{arcmapCreate10} \\
+\textbf{11.}\includegraphics[scale=0.35, valign=T]{arcmapCreate11} & \textbf{12.}\includegraphics[scale=0.50, valign=T]{arcmapCreate12} 
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing in ArcMap - Geometry \hfill\includegraphics[scale=0.20]{arcmapEditor1}}
+\say{Editor} and \say{Editor Vertices} Toolbars.\hfill\tiny\textbf{{Helpful Keyboard \say{Undo} Shortcut: Ctrl + Z}}
+\vspace{-0.2in}
+\normalsize
+\begin{table}
+\begin{tabular}{l l l}
+\textbf{1.} \includegraphics[scale=0.40, valign=T]{arcmapEditor2} & \textbf{2.} \includegraphics[scale=0.33, valign=T]{arcmapEditor3} & \textbf{3.}\includegraphics[scale=0.33, valign=T]{arcmapEditor4} \\
+\textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapEditor5} & \textbf{5.}\includegraphics[scale=0.35, valign=T]{arcmapEditor6} & \textbf{6.}\includegraphics[scale=0.35, valign=T]{arcmapEditor7}  \\
+\textbf{7.}\includegraphics[scale=0.35, valign=T]{arcmapEditor8} & \textbf{8.}\includegraphics[scale=0.35, valign=T]{arcmapEditor9}
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing in ArcMap - Attributes/Geometry \hfill\includegraphics[scale=0.12]{arcmapEditor1}}
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l l}
+\textbf{1.} \includegraphics[scale=0.40, valign=T]{arcmapAttributes1} & \textbf{2.} \includegraphics[scale=0.33, valign=T]{arcmapAttributes2} & \textbf{3.}\includegraphics[scale=0.33, valign=T]{arcmapAttributes3} \\
+\textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes4} & \textbf{5.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes5} & \textbf{6.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes6}  \\
+\textbf{7.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes7} & \textbf{8.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes8} & \textbf{9.}\includegraphics[scale=0.35, valign=T]{arcmapAttributes9} \\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+%------------------------------------------------
+\subsection{Loading a Shapefile to Garmin with DNRGPS}
+\begin{frame}
+\frametitle{Loading Shapefiles to GPS Units using DNRGPS}
+Loaded as points or tracks (areas are converted to tracks)\\
+
+\begin{itemize}
+\item  Project Shapefile in NAD83 UTM Z13N $\rightarrow$ WGS84\\ 
+(meters to degrees)
+\item Garmin uses \say{tident} attribute as the \textbf{Feature name}.
+\item You specify \textbf{File name} when you upload data.
+\end{itemize}
+
+\includegraphics[scale=0.30]{dnrGPS5}\includegraphics[scale=0.30]{dnrGPS14}\includegraphics[scale=0.30]{dnrGPS15}\\
+Change DNRGPS $\rightarrow$ WGS84 (will show up as \say{No projection})
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Loading Shapefiles to GPS Units using DNRGPS}
+
+You choose which field to be the \say{TIDENT} field. Here I have chosen \say{Id} with the text Project Boundary written \& \say{comment} field is transferred.
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.} \includegraphics[scale=0.35, valign=T]{dnrGPS6} & \textbf{2.} \includegraphics[scale=0.25, valign=T]{dnrGPS7} \\
+\textbf{3.} \includegraphics[scale=0.55, valign=T]{dnrGPS8} & \textbf{4.}\includegraphics[scale=0.25, valign=T]{dnrGPS9}
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Loading Shapefiles to GPS Units using DNRGPS}
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{5.}\includegraphics[scale=0.55, valign=T]{dnrGPS10} & \textbf{6.}\includegraphics[scale=0.60, valign=T]{dnrGPS11}\\
+\textbf{7.}\includegraphics[scale=0.50, valign=T]{dnrGPS12} & \textbf{8.}\includegraphics[scale=0.55, valign=T]{dnrGPS13}
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Forest Treatments Map in ArcGIS Online}
+\begin{frame}
+\frametitle{N.M. State Forestry Web Maps}
+\vspace{-0.35in}
+\center
+\includegraphics[scale=0.35, valign=T]{forestryWebMap3}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Forest Treatments Map}
+\includegraphics[scale=0.27]{forestryWebMap4} 
+\hfill\includegraphics[scale=0.4]{forestryWebMap5}\\
+\center
+\vspace{0.2in}
+Many records have little to no attributes.
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Forest Treatments Map}
+\vspace{-0.2in}
+\center
+\includegraphics[scale=0.22]{weCanDoIt}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing Forest Treatments in ArcGIS Online}
+A separate nonpublic application for making edits to Forest Treatments
+\center
+\includegraphics[scale=0.23]{forestryWebMap6}
+\hfill\includegraphics[scale=0.40]{forestryWebMap7} 
+\vspace{0.2in}
+URL to Editing Map: \tiny{https://nm-emnrd.maps.arcgis.com/apps/webappviewer/index.html?id=3e93a1b5dde34082bb95b56c6c872a5e}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing Forest Treatments in ArcGIS Online}
+
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.}\includegraphics[scale=0.3, valign=T]{forestryWebMap8} & \textbf{2.}\includegraphics[scale=0.25, valign=T]{forestryWebMap9}\\
+Edits are easy and instantly \\change public facing map         	     & \textbf{3.}\includegraphics[scale=0.3, valign=T]{forestryWebMap10}
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing Forest Treatments in ArcGIS Online}
+\vspace{-0.1in}
+\includegraphics[scale=0.15]{vfnu}\\
+\small{\href{https://nm-emnrd.maps.arcgis.com/apps/webappviewer/index.html?id=3e93a1b5dde34082bb95b56c6c872a5e}{Click here to go to Forest Treatments Editing Application}}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Editing Forest Treatments in ArcGIS Online}
+Forest Treatments Editing Map vs. Forest Treatments Public Map\\
+Requires named user accounts (uses EMNRD domain login)\\
+Super-easy! All edits made from inside web browser.
+
+\begin{itemize}
+\item Xavier Anderson (Capitan)
+\item Shanon Atencio (Las Vegas)
+\item Joe Caurrilo (Chama)
+\item Lawrence Crane (Bernalillo)
+\item Arnie Friedt (Cimarron)
+\item Nick Smokovitch (Socorro)
+\end{itemize}
+
+\vspace{0.3in}
+Additional accounts \$50/person/year\\
+(access to ArcGIS Online (AGOL) or Portal for ArcGIS (Portal))
+\end{frame}
+
+%------------------------------------------------
+
+\section{Custom Forestry GIS Tools}
+\begin{frame}
+\frametitle{Custom Forestry GIS Tools}
+Copy \say{Forestry GIS Tools} folder to your local machine (6.2 GB) for faster performance.
+Don't move subfolders or just copy \say{Forestry Tools.pyt}, b/c coded relative file paths will break.
+\center
+\includegraphics[scale=1, valign=T]{arcmapCustomTools1}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Save copy of MXD Template for your other maps}
+Copy MXD from \say{E911 Analysis}, paste in folder \& repair broken links.
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l l}
+\textbf{1.} \includegraphics[scale=0.20, valign=T]{customTools1} & \textbf{2.} \includegraphics[scale=0.25, valign=T]{customTools2} & \textbf{3.}\includegraphics[scale=0.25, valign=T]{arcmapBrokenLinks1} \\
+\textbf{4.}\includegraphics[scale=0.35, valign=T]{arcmapBrokenLinks2} & \textbf{5.}\includegraphics[scale=0.30, valign=T]{arcmapBrokenLinks3} & \textbf{6.}\includegraphics[scale=0.35, valign=T]{arcmapBrokenLinks4} 
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Save copy of MXD Template for your other maps}
+
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{7.}\includegraphics[scale=0.35, valign=T]{arcmapBrokenLinks5} & \textbf{8.}\includegraphics[scale=0.35, valign=T]{arcmapBrokenLinks6}\\ 
+\textbf{9.}\includegraphics[scale=0.5, valign=T]{arcmapBrokenLinks7} & \textbf{10.}\includegraphics[scale=0.25, valign=T]{arcmapBrokenLinks8}\\ 
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Convert Shapefile to WKT}
+\begin{frame}
+\frametitle{Convert Shapefile to WKT}
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{itemize}
+\item\textbf{Purpose: } Convert shapefile to Well-known text (WKT). Paste WKT into SMART web-based data-entry tool where location/geospatial data goes.
+\item\textbf{Instructions: }Input shapefile
+\item\textbf{Output: }text file (.txt)
+\end{itemize}
+\includegraphics[scale=0.5, valign=T]{arcmapConvertShapefileWKT3}
+
+\column{.5\textwidth}
+\includegraphics[scale=0.45, valign=T]{arcmapConvertShapefileWKT1}\\
+\vspace{0.3in}
+\includegraphics[scale=0.5, valign=T]{arcmapConvertShapefileWKT2}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Convert Shapefile to WKT}
+
+U.S. Forest Service SMART data-entry tool for Stewardship Plans.
+\vspace{-0.2in}
+\begin{table}
+\begin{tabular}{l l}
+\textbf{1.} \includegraphics[scale=0.30, valign=T]{smart1} & \textbf{2.} \includegraphics[scale=0.30, valign=T]{smart2} \\
+\textbf{3.}\includegraphics[scale=0.20, valign=T]{smart3} & \textbf{4.}\includegraphics[scale=0.30, valign=T]{smart4} \\
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{E911 Analysis - Fire Mapping}
+\begin{frame}
+\frametitle{E911 Analysis - Fire Mapping}
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{itemize}
+\item\textbf{Purpose: }Determine number of potentially affected addresses by fire and the land ownership and township/range.
+\item\textbf{Instructions: }Input fire's geographic coordinates and select 1 or 5 mile buffer
+\item\textbf{Output: }Map, feature classes, kmz, mxd (optional) 
+\end{itemize}
+
+\column{0.5\textwidth}
+\includegraphics[scale=0.4, valign=T]{arcmapE911Analysis1}\\
+\vspace{0.2in}
+\includegraphics[scale=0.45, valign=T]{arcmapE911Analysis2}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{E911 Analysis - Fire Mapping}
+\vspace{-0.4in}
+\center
+\includegraphics[scale=0.3, valign=T]{fictitiousfire_5mileBuffer}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{OARS Shapefile Developer}
+\begin{frame}
+\frametitle{OARS Shapefile Developer}
+
+\begin{columns}[t]
+\column{.4\textwidth}
+\begin{itemize}
+\item\textbf{Purpose: }Build shapefile's schema with 16 attributes.\\
+\item\textbf{Instructions: }Input shapefile and fill out form using checklists, picklists, and text.\\
+\item\textbf{Output: }Shapefile that's ready to be uploaded to OARS and displayed in public-facing \say{Forest Treatments Map}.
+\end{itemize}
+
+\column{0.6\textwidth}
+\includegraphics[scale=0.3, valign=T]{OARS1}\\
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\subsection{Percent Slope Analysis}
+\begin{frame}
+\frametitle{Percent Slope Analysis}
+
+\begin{columns}[t]
+\column{.5\textwidth}
+\begin{itemize}
+\item\textbf{Purpose: }Quantify acreage above/below selected slope threshold to aid setting up forest contractor rates that vary by slope.\\
+\item\textbf{Instructions: }Input shapefile and select slope threshold (15, 20, 25, 30, 40). \\
+\item\textbf{Output: }Map, graph, summary shapefile, mxd (optional)
+\end{itemize}
+\includegraphics[scale=0.7]{percentSlope2}\\
+
+\column{0.5\textwidth}
+\includegraphics[scale=0.5, valign=T]{percentSlope1}\\
+\vspace{0.1in}
+\includegraphics[scale=0.55, valign=T]{percentSlope5}\\
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Percent Slope Analysis}
+\vspace{-0.45in}
+\center
+\includegraphics[scale=0.35, valign=T]{percentSlope3} 
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Percent Slope Analysis}
+\vspace{-0.4in}
+\center
+\includegraphics[scale=0.30, valign=T]{percentSlope4} 
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Any Questions?}
+\vspace{-0.3in}
+\center
+\includegraphics[scale=0.2, valign=T]{sawwhet}
+\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Multiple Columns}
+%\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+%
+%\column{.45\textwidth} % Left column and width
+%\textbf{Heading}
+%\begin{enumerate}
+%\item Statement
+%\item Explanation
+%\item Example
+%\end{enumerate}
+%
+%\column{.5\textwidth} % Right column and width
+%Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+%
+%\end{columns}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Table}
+%\begin{table}
+%\begin{tabular}{l l l}
+%\toprule
+%\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+%\midrule
+%Treatment 1 & 0.0003262 & 0.562 \\
+%Treatment 2 & 0.0015681 & 0.910 \\
+%Treatment 3 & 0.0009271 & 0.296 \\
+%\bottomrule
+%\end{tabular}
+%\caption{Table caption}
+%\end{table}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Theorem}
+%\begin{theorem}[Mass--energy equivalence]
+%$E = mc^2$
+%\end{theorem}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+%\frametitle{Verbatim}
+%\begin{example}[Theorem Slide Code]
+%\begin{verbatim}
+%\begin{frame}
+%\frametitle{Theorem}
+%\begin{theorem}[Mass--energy equivalence]
+%$E = mc^2$
+%\end{theorem}
+%\end{frame}\end{verbatim}
+%\end{example}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{Figure}
+%Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
+%%\begin{figure}
+%%\includegraphics[width=0.8\linewidth]{test}
+%%\end{figure}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+%\frametitle{Citation}
+%An example of the \verb|\cite| command to cite within the presentation:\\~
+%
+%This statement requires citation \cite{p1}.
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\frametitle{References}
+%\footnotesize{
+%\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+%\bibitem[Smith, 2012]{p1} John Smith (2012)
+%\newblock Title of the publication
+%\newblock \emph{Journal Name} 12(3), 45 -- 678.
+%\end{thebibliography}
+%}
+%\end{frame}
+
+%------------------------------------------------
+
+%\begin{frame}
+%\Huge{\centerline{The End}}
+%\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 

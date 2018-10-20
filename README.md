@@ -1,7 +1,7 @@
 # NM-State-Forestry-Python-Tools
 Python scripts and geoprocessing tools. 
 
-I worked as the GIS Coordinator at New Mexico State Forestry (NMSF) for 9 months prior to moving to New Mexico Department of Transportation (NMDOT). I supported both the forest resources bureau and the fire management bureau at state forestry and wrote python code to create tools that can be run by non-programmers, as well as non-GIS specialists from a GUI in ArcMap. The python tools are entirely written in ArcMap and use a number of python modules: os, re, pandas, arcpy (ESRI). I also wrote a number of python scripts to be used by only me to help process various datasets.
+I worked as the GIS Coordinator at New Mexico State Forestry (NMSF) for 9 months prior to moving to New Mexico Department of Transportation (NMDOT). I supported both the forest resources bureau and the fire management bureau at state forestry and wrote python code to create tools that can be run by non-programmers, as well as non-GIS specialists from a GUI in ArcMap. The python code uses a number of python modules: os, re, pandas, and arcpy (ESRI). I also wrote a number of python scripts to be used by only me to help process various datasets.
 
 Tools:
 1) Convert Shapefile to WKT: User inputs shapefile into tool and code converts vertices to well-known text (WKT) and writes it to a text file. The WKT is subsequently copied and pasted into a U.S. Forest Service portal that tracks forest thinning projects.
